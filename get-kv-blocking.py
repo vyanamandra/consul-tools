@@ -7,7 +7,7 @@ from datetime import datetime
 def dttm_this_get(url, key, index, consistent, wait, token):
     resp = ''
     status_code = 200
-    get_url = '{}/v1/kv/{}?index={}&wait={}'.format(url, key, index, wait)
+    get_url = '{}/v1/kv/{}?index={}&wait={}'.format(url.strip('/'), key, index, wait)
     if consistent:
         get_url = '{}&consistent='.format(get_url)
 
