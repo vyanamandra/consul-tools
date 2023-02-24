@@ -15,9 +15,13 @@ from datetime import datetime
 def dttm_this_get(url, key, index, consistent, wait, token):
     resp = ''
     status_code = 200
-    get_url = '{}/v1/kv/{}?index={}&wait={}'.format(url.strip('/'), key, index, wait)
+    get_url = '{}/v1/kv/{}?index={}'.format(url, key, index)
+    
     if consistent:
         get_url = '{}&consistent='.format(get_url)
+        
+    if len(wait) > 0:
+        get_url = '{}&wait={}'.format(get_url, wait)
 
     start = datetime.now()
 
@@ -50,7 +54,7 @@ def main():
     key_required.add_argument('-k', '--key', required=True, help='Key to retrieve')
     parser.add_argument('-i', '--index', type=int, default=1)
     parser.add_argument('-c', '--consistent', type=bool, default=True)
-    parser.add_argument('-w', '--wait', default='1s')
+    parser.add_argument('-w', '--wait', default='')
     parser.add_argument('-t', '--token', default='')
 
     args = parser.parse_args()
